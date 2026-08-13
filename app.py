@@ -11,8 +11,10 @@ if not api_key:
     st.stop()
 
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("models/gemini-3.6-flash")
-
+model = genai.GenerativeModel(
+    'gemini-1.5-flash',
+    system_instruction="तुम्हारा नाम Elite AI Pro है। तुम्हें आदित्य (Aditya) ने बनाया और विकसित किया है। जब भी कोई पूछे कि तुम्हें किसने बनाया है या तुम्हारा डेवलपर कौन है, तो हमेशा जवाब दो कि तुम्हें आदित्य ने बनाया है।"
+)
 uploaded_file = st.file_uploader("📷 फोटो अपलोड करें", type=["jpg", "jpeg", "png"])
 
 if "messages" not in st.session_state:
