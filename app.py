@@ -1,19 +1,19 @@
-google.generativeai as genai
+import streamlit as st
+import google.generativeai as genai
+from PIL import Image
 
-st.set_page_config(page_title="Elite AI", page_icon="🤖")
-st.title("🤖 Elite AI Chatbot")
+st.set_page_config(page_title="Elite AI Pro", page_icon="🤖")
+st.title("🤖 Elite AI Chatbot (Pro)")
 
-# Sidebar में API Key का इनपुट
-st.sidebar.header("Settings")
 api_key = st.sidebar.text_input("Google Gemini API Key", type="password")
-
 if not api_key:
-    st.info("👈 पहले Sidebar में अपनी Google Gemini API Key डालें।")
+    st.info("👈 Sidebar में API Key डालें।")
     st.stop()
 
-# Gemini Config
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel('gemini-2.5-flash')
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+uploaded_file = st.file_uploader("📷 फोटो अपलोड करें", type=["jpg", "jpeg", "png"])
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -22,12 +22,20 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if prompt := st.chat_input("Elite AI से कुछ भी पूछें..."):
+if prompt := st.chat_input("अपना सवाल लिखें..."):
+    img = None
+    if uploaded_file:
+        img = Image.open(uploaded_file)
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
+        if img:
+            st.image(img, width=200)
         st.markdown(prompt)
-
-    try:
-        with st.chat_message("assistant"):
+    with st.chat_message("assistant"):
+        if img:
+            response = model.generate_content([prompt, img])
+        else:
             response = model.generate_content(prompt)
-            
+            st.markdown(response.text)
+        st.markdown(response.text)
+
