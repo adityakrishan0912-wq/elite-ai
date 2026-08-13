@@ -33,4 +33,4 @@ if prompt := st.chat_input("Elite AI से कुछ भी पूछें..."
     try:
         with st.chat_message("assistant"):
             response = model.generate_content(prompt)
-            st.markdown(response.text)"
+            st.markdown(response.text)
