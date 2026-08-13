@@ -1,7 +1,4 @@
-
-
-import streamlit as st
-import google.generativeai as genai
+google.generativeai as genai
 
 st.set_page_config(page_title="Elite AI", page_icon="🤖")
 st.title("🤖 Elite AI Chatbot")
@@ -33,4 +30,4 @@ if prompt := st.chat_input("Elite AI से कुछ भी पूछें..."
     try:
         with st.chat_message("assistant"):
             response = model.generate_content(prompt)
-            st.markdown(response.text)
+            
