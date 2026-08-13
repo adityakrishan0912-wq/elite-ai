@@ -1,4 +1,5 @@
 
+
 import streamlit as st
 import google.generativeai as genai
 
@@ -32,7 +33,4 @@ if prompt := st.chat_input("Elite AI से कुछ भी पूछें..."
     try:
         with st.chat_message("assistant"):
             response = model.generate_content(prompt)
-            st.markdown(response.text)
-            st.session_state.messages.append({"role": "assistant", "content": response.text})
-    except Exception as e:           
-            st.error(f"Error: {e}")
+            st.markdown(response.text)"
