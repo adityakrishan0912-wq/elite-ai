@@ -3,6 +3,19 @@ import google.generativeai as genai
 from PIL import Image
 
 st.set_page_config(page_title="Elite AI Pro", page_icon="🤖")
+st.markdown("""
+<style>
+    .stChatMessage p, .stChatMessage div {
+        font-size: 1.15rem !important;
+        font-weight: 500 !important;
+        line-height: 1.6 !important;
+    }
+    .stChatInput textarea {
+        font-size: 1.05rem !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🤖 Elite AI Chatbot (Pro)")
 
 api_key = st.sidebar.text_input("Google Gemini API Key", type="password")
