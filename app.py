@@ -5,11 +5,9 @@ from PIL import Image
 st.set_page_config(page_title="Elite AI Pro", page_icon="🤖")
 st.markdown("""
 <style>
-    .stChatMessage p, .stChatMessage div {
-        font-size: 1.15rem !important;
-        font-weight: 500 !important;
-        line-height: 1.6 !important;
-    }
+api_key = st.secrets["GEMINI_API_KEY"]
+genai.configure(api_key=api_key)
+
     .stChatInput textarea {
         font-size: 1.05rem !important;
     }
