@@ -2,6 +2,8 @@ import streamlit as st
 import google.generativeai as genai
 from PIL import Image
 
+from streamlit_mic_recorder import speech_to_text
+
 st.set_page_config(page_title="Elite AI Pro", page_icon="🤖")
 st.markdown("""
 <style>
@@ -24,6 +26,8 @@ model = genai.GenerativeModel(
     system_instruction="तुम्हारा नाम Elite AI Pro है। तुम्हें आदित्य (Aditya) ने बनाया और विकसित किया है। जब भी कोई पूछे कि तुम्हें किसने बनाया है या तुम्हारा डेवलपर कौन है, तो हमेशा जवाब दो कि तुम्हें आदित्य ने बनाया है।"
 )
 uploaded_file = st.file_uploader("📷 फोटो अपलोड करें", type=["jpg", "jpeg", "png"])
+st.write("🎙️ **बोलकर पूछें:**")
+audio_text = speech_to_text(language='hi-IN', start_prompt="🎙️", stop_prompt="⏹️", key='audio')
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -32,7 +36,9 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-user_prompt = st.chat_input("अपना सवाल लिखें...")
+text_input = st.chat_input("अपना सवाल लिखें...")
+user_prompt = audio_text if audio_text else text_input
+
 
 if user_prompt:
     img = None
