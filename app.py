@@ -52,8 +52,23 @@ if user_prompt:
         st.markdown(user_prompt)
 
     with st.chat_message("assistant"):
-            with st.chat_message("assistant"):
         try:
+            if img is not None:
+                response = model.generate_content([user_prompt, img], stream=True)
+            else:
+                response = model.generate_content(user_prompt, stream=True)
+
+            def stream_gen():
+                for chunk in response:
+                    yield chunk.text
+
+            reply_text = st.write_stream(stream_gen)
+        except Exception as e:
+            reply_text = f"⚠️ Error: {e}"
+            st.markdown(reply_text)
+
+    st.session_state.messages.append({"role": "assistant", "content": reply_text})
+
             if img is not None:
                 response = model.generate_content([user_prompt, img], stream=True)
             else:
