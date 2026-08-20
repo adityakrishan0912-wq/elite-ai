@@ -69,29 +69,7 @@ if user_prompt:
 
     st.session_state.messages.append({"role": "assistant", "content": reply_text})
 
-            if img is not None:
-                response = model.generate_content([user_prompt, img], stream=True)
-            else:
-                response = model.generate_content(user_prompt, stream=True)
-
-            def stream_gen():
-                for chunk in response:
-                    yield chunk.text
-
-            reply_text = st.write_stream(stream_gen)
-        except Exception as e:
-            reply_text = f"⚠️ Error: {e}"
-            st.markdown(reply_text)
-
-                if img is not None:
-                    response = model.generate_content([user_prompt, img])
-                else:
-                    response = model.generate_content(user_prompt)
-                reply_text = response.text
-            except Exception as e:
-                reply_text = f"⚠️ Error: {e}"
-
-        st.markdown(reply_text)
+            
 
     st.session_state.messages.append({"role": "assistant", "content": reply_text})
 
