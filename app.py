@@ -22,7 +22,7 @@ api_key = st.secrets["GEMINI_API_KEY"]
 
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel(
-    'gemini-1.5-flash',
+    'gemini-3.7-flash',
     system_instruction=(
         "तुम्हारा नाम Elite AI Pro है। तुम्हें आदित्य (Aditya) ने बनाया और विकसित किया है। "
         "जब भी कोई पूछे कि तुम्हें किसने बनाया है, तो हमेशा गर्व से बताओ कि तुम्हारे क्रिएटर आदित्य हैं। "
