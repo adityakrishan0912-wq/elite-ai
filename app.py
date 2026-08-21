@@ -77,6 +77,10 @@ if user_prompt:
         except Exception as e:
             reply_text = f"⚠️ Error: {e}"
             st.markdown(reply_text)
+            tts = gTTS(text=reply_text, lang='hi')
+            sound_file = io.BytesIO()
+            tts.write_to_fp(sound_file)
+            st.audio(sound_file, format='audio/mp3')
 
     st.session_state.messages.append({"role": "assistant", "content": reply_text})
 
