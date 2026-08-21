@@ -3,6 +3,8 @@ import google.generativeai as genai
 from PIL import Image
 
 from streamlit_mic_recorder import speech_to_text
+from gtts import gTTS
+import io
 
 st.set_page_config(page_title="Elite AI Pro", page_icon="🤖")
 st.markdown("""
